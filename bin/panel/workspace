@@ -1,0 +1,28 @@
+#!/bin/sh
+
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_WIDTH=1400
+PANEL_HEIGHT=24
+PANEL_BG=#1976d2 #colBlue700
+PANEL_FONT="JetBrainsMonoNerdFontMono-10"
+PANEL_WM_NAME=bspwm_workspace
+export PANEL_FIFO PANEL_HEIGHT PANEL_BG PANEL_FONT PANEL_WM_NAME
+
+if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc subscribe report > "$PANEL_FIFO" &
+
+workspace_bar < "$PANEL_FIFO" | dzen2 -fn $PANEL_FONT -w $PANEL_WIDTH -h $PANEL_HEIGHT -ta l -x 0 -y 0 -bg $PANEL_BG | sh &
+
+wid=$(xdo id -m -a "$PANEL_WM_NAME")
+xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+wait

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+theme='double-arrow'
+
+DIR=$(dirname "$0")
+. ${DIR}/gmc
+. ${DIR}/vars
+. ${DIR}/segments
+. ${DIR}/output
+
+generated_output | dzen2 $parameters &

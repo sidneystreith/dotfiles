@@ -1,0 +1,5 @@
+## Import files (colors, fonts, etc)
+import:
+  - ~/.config/alacritty/options.yml
+  - ~/.config/alacritty/font.yml
+  - ~/.config/alacritty/nightfox.yml

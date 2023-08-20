@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# font
+font="JetBrainsMonoNerdFont-10"
+NerdFont="^fn(JetBrainsMonoNerdFont-12)"
+# Glyph Icon Decoration
+decopath="$HOME/bin/panel/icons/xbm"
+# diagonal corner
+deco_dc_tl="^i($decopath/dc-024-tl.xbm)"
+deco_dc_tr="^i($decopath/dc-024-tr.xbm)"
+deco_dc_bl="^i($decopath/dc-024-bl.xbm)"
+deco_dc_br="^i($decopath/dc-024-br.xbm)"
+# single arrow and double arrow
+deco_sa_l="^i($decopath/sa-024-l.xbm)"
+deco_sa_r="^i($decopath/sa-024-r.xbm)"
+deco_da_l="^i($decopath/da-024-l.xbm)"
+deco_da_r="^i($decopath/da-024-r.xbm)"
+
+# initial
+if [ -z $theme ]
+then
+  theme='double-arrow'
+
+  # dzen panel color
+  bgcolor=$colWhite
+  fgcolor=$colBlack
+  alignment="l"
+fi
+
+init_theme() {
+  theme_config_default=~/bin/panel/double-arrow
+  theme_config=~/bin/panel/${theme}
+
+  [ -x "$theme_config" ] || theme_config=$theme_config_default
+
+  . $theme_config
+}
+
+init_theme
+
+# dzen2 parameters
+
+xpos=1120
+ypos=0
+width=800
+height=24
+font="JetBrainsMonoNerdFont-10"
+parameters="  -x $xpos -y $ypos -w $width -h $height"
+parameters+=" -fn $font"
+parameters+=" -ta $alignment -bg $bgcolor -fg $fgcolor"
+parameters+=" -title-name dzentop"

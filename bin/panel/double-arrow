@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# ----- ----- ----- -----
+# dzen panel parameters
+
+bgcolor=$colBlue700
+fgcolor=$colBlue700
+alignment="r"
+
+# ----- ----- ----- -----
+# theme
+
+# plain
+separator="^bg()^fg($colWhite)|^bg()^fg()"
+transition200=$colGreen200
+transition400=$colGreen400
+transition600=$colGreen600
+
+preIcon="^fg($colYellow600)$NerdFont"
+postIcon="^fn()^fg()"
+labelColor="^fg($colPink500)"
+valueColor="^fg($colBlack)"
+# Battery
+valueColor_capacity="^fg($colBlack)"
+valueColor_status="^fg($colGreen200)"
+
+# ----- ----- ----- -----
+# dzen2 panel parts
+
+theme_show() {
+  local text=""
+
+  text+="^bg()^fg($transition200)$deco_da_l"
+  text+="^bg($transition200)^fg() $segmentHost "
+  text+="^bg($transition200)^fg($transition400)$deco_da_l"
+  text+="^bg($transition400)^fg() $segmentPower "
+  text+="^bg($transition400)^fg($transition200)$deco_da_l"
+  text+="^bg($transition200)^fg() $segmentDate "
+  text+="^bg($transition200)^fg()$deco_da_l"
+  
+  echo -n $text
+}

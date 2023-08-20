@@ -1,0 +1,6 @@
+require('keybindings')
+require('packages')
+require('colorscheme')
+require('config')
+require('treesitter')
+require('close')

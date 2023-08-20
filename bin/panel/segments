@@ -1,0 +1,37 @@
+#!/bin/bash
+
+setPower() {
+  local icon="$preIcon󰄌 $postIcon"
+  for battery in /sys/class/power_supply/BAT?*; do
+    case "$(cat "$battery/status" 2>&1)" in
+      "Full") status="Full" ;;
+      "Discharging") status="Discharging" ;;
+      "Charging") status="Charging" ;;
+      "Not charging") status="Not Charging" ;;
+      "Unknown") status="Unknown" ;;
+      *) exit 1 ;;
+    esac
+    capacity="$(cat "$battery/capacity" 2>&1)"
+    labelBattery="Battery"
+    segmentPower="$icon$labelColor$labelBattery$valueColor_capacity $capacity%$valueColor_status $status "
+  done
+}
+
+setHost() {
+  local icon="$preIcon󰣐 $postIcon"
+  local value=$(uname -n)
+  labelHost="Host"
+  segmentHost="$icon$labelColor$labelHost $valueColor$value"
+}
+
+setDate() {
+  local iconDate="$preIcon  $postIcon"
+  local iconTime="$preIcon $postIcon"
+  local date=$(date +'%a %b %d')
+  local time=$(date +'%H:%M')
+  labelClock="Clock"
+  labelDate="Date"
+  segmentDate=" $iconTime$labelColor$labelClock $valueColor$time "
+  segmentDate+="$iconDate$labelColor$labelDate $valueColor$date"
+
+}
