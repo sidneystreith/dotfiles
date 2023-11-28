@@ -1,6 +1,2 @@
-require('keybindings')
-require('packages')
-require('colorscheme')
-require('config')
-require('treesitter')
-require('close')
+require("sidney.core")
+require("sidney.lazy")

@@ -25,5 +25,4 @@ opt.splitright = true
 opt.splitbelow = true
 opt.iskeyword:append("-")
 -- misc
-vim.cmd("colorscheme nightfox")
 vim.cmd("set history=2")
